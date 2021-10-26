@@ -4,21 +4,15 @@ import { connect } from "react-redux";
 import { setTodos, TodoActions } from "../redux/actions";
 import { RootState, TodoItem } from "../redux/types";
 import Todo from "./Todo";
+import { fetchTodos } from "../redux/actions";
 
 type TodoListProps = {
   todos: Array<TodoItem>;
   setTodos: (todos: Array<TodoItem>) => TodoActions;
 };
 
-const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, fetchTodos }) => {
   useEffect(() => {
-    const fetchTodos = async () => {
-      const response = await axios.get(`http://localhost:4000/todos`)
-        .catch((error) => {
-          throw new Error(error.message);
-        });
-      setTodos(response.data);
-    };
     fetchTodos();
   }, []);
   
